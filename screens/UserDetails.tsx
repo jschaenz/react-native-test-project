@@ -6,12 +6,12 @@ import {User, userConverter} from "../components/UserComponent";
 
 export const UserDetails = ({navigation}) => {
 
-    const [name, onChangeName] = useState("")
-    const [email, onChangeEmail] = useState("")
-    const [url, onChangeUrl] = useState("")
+    const [name, onChangeName] = useState(navigation.getParam("name"))
+    const [email, onChangeEmail] = useState(navigation.getParam("email"))
+    const [url, onChangeUrl] = useState(navigation.getParam("url"))
 
     async function saveUser() {
-        const ref = doc(db, "users", name).withConverter(userConverter)
+        const ref = doc(db, "users", name + email + url).withConverter(userConverter)
         await setDoc(ref, new User(name, email, url))
             .then(
                 navigation.navigate("UserOverview")
@@ -42,7 +42,8 @@ export const UserDetails = ({navigation}) => {
     }
 
     async function deleteUser() {
-        await deleteDoc(doc(db, "users", name).withConverter(userConverter))
+        const ref = doc(db, "users", name + email + url).withConverter(userConverter)
+        await deleteDoc(ref)
             .then(
                 navigation.navigate("UserOverview")
             ).catch(
@@ -55,20 +56,20 @@ export const UserDetails = ({navigation}) => {
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeName}
-                value={navigation.getParam("name")}
+                value={name}
                 placeholder="Name"
             />
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeEmail}
-                value={navigation.getParam("email")}
+                value={email}
                 placeholder="Email"
                 keyboardType="numeric"
             />
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeUrl}
-                value={navigation.getParam("url")}
+                value={url}
                 placeholder={"URL"}
                 keyboardType="numeric"
             />

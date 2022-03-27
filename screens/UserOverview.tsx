@@ -3,39 +3,23 @@ import {useEffect, useState} from "react";
 import {collection, onSnapshot} from "@firebase/firestore";
 import db from '../components/Firebase'
 
-/**
- * retrieve the current list of users from a repository.
- *
- * For each user, you should show the picture (as a small round avatar) and the
- * name of the user.
- *
- * Each user should be selectable, i.e. is a user is pressed, a new screen will be
- * shown with the details of the user.
- *
- * Include a button to create new users (in which case, the Create New User
- * screen will be opened)
- * (Similar to this example, but with a different photo for each user, and you do
- * not need to show the email)
- */
-
 export const UserOverview = ({navigation}) => {
 
     const [users, setUsers] = useState([
-        {"id": 123, "name": "NO DB", "email": "asdas", "url": "xdddd"}
+        {"id": 123, "name": "DB", "email": "asdas", "url": "xdddd"}
     ]);
-
 
     useEffect(() => {
             const colRef = collection(db, "users")
             onSnapshot(colRef, (querySnapshot) => {
                 const fetchedUsers: any = []
                 querySnapshot.forEach((doc) => {
-                        const {name, email, picture} = doc.data()
+                        const {name, email, url} = doc.data()
                         fetchedUsers.push({
-                            id: doc.id,
+                            id: name + email + url,
                             name,
                             email,
-                            picture
+                            url
                         })
                     }
                 )
@@ -44,13 +28,12 @@ export const UserOverview = ({navigation}) => {
         }, []
     )
 
-
     function switchToDetails(item: any) {
         navigation.navigate("UserDetails", item)
     }
 
-    function createNewUserPressed() {
-        navigation.navigate("CreateNewUser")
+    function createNewUserPressed(item: any) {
+        navigation.navigate("CreateNewUser", item)
     }
 
     return (
@@ -63,7 +46,7 @@ export const UserOverview = ({navigation}) => {
                         <Text style={styles.item}>{item.name}</Text>
                     </TouchableOpacity>
                 )}
-                keyExtractor={(item) => item.name}
+                keyExtractor={(item) => item.id}
             />
         </View>
     );

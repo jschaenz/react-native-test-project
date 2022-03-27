@@ -11,7 +11,7 @@ export const CreateNewUser = ({navigation}) => {
     const [url, onChangeUrl] = useState("")
 
     async function saveUser() {
-        const ref = doc(db, "users", name).withConverter(userConverter)
+        const ref = doc(db, "users", name + email + url).withConverter(userConverter)
         await setDoc(ref, new User(name, email, url))
         navigation.navigate("UserOverview")
     }
