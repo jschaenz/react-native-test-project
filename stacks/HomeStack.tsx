@@ -6,13 +6,22 @@ import createStackNavigator from "react-native-screens/createNativeStackNavigato
 
 const screens = {
     UserOverview: {
-        screen: UserOverview
+        screen: UserOverview,
+        navigationOptions: {
+            title: "Overview"
+        }
     },
     UserDetails: {
-        screen: UserDetails
+        screen: UserDetails,
+        navigationOptions: {
+            title: "Details"
+        }
     },
     CreateNewUser: {
-        screen:  CreateNewUser
+        screen:  CreateNewUser,
+        navigationOptions: {
+            title: "Create new user"
+        }
     }
 }
 const HomeStack = createStackNavigator(screens)

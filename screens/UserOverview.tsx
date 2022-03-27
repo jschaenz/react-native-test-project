@@ -1,4 +1,7 @@
 import {Button, FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useEffect, useState} from "react";
+import {collection, onSnapshot} from "@firebase/firestore";
+import db from '../components/Firebase'
 
 /**
  * retrieve the current list of users from a repository.
@@ -15,19 +18,37 @@ import {Button, FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-
  * not need to show the email)
  */
 
-
-function switchToDetails() {
-    return
-}
-
-const kampf = [
-    {name: "denis", key: "1"},
-    {name: "max", key: "2"},
-    {name: "johannes", key: "3"}
-]
-
-
 export const UserOverview = ({navigation}) => {
+
+    const [users, setUsers] = useState([
+        {"id": 123, "name": "test", "email": "asdas", "url": "xdddd"}
+    ]);
+
+
+    /*
+    useEffect(() => {
+            const colRef = collection(db, "users")
+            onSnapshot(colRef, (querySnapshot) => {
+                const fetchedUsers = []
+                querySnapshot.forEach((doc) => {
+                        const {name, email, picture} = doc.data()
+                        fetchedUsers.push({
+                            id: doc.id,
+                            name,
+                            email,
+                            picture
+                        })
+                    }
+                )
+                setUsers(fetchedUsers)
+            })
+        }, []
+    )
+     */
+
+    function switchToDetails(item: any) {
+        navigation.navigate("UserDetails", item)
+    }
 
     function createNewUserPressed() {
         navigation.navigate("CreateNewUser")
@@ -35,14 +56,11 @@ export const UserOverview = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.header}>
-                Users List
-            </Text>
             <Button title={"Create new User"} onPress={createNewUserPressed}/>
             <FlatList
-                data={kampf}
+                data={users}
                 renderItem={({item}) => (
-                    <TouchableOpacity onPress={() => switchToDetails()}>
+                    <TouchableOpacity onPress={() => switchToDetails(item)}>
                         <Text style={styles.item}>{item.name}</Text>
                     </TouchableOpacity>
                 )}
@@ -57,10 +75,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    header: {
-        fontWeight: "bold",
-        fontSize: 20
     },
     item: {}
 });
