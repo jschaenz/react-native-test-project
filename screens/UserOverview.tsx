@@ -1,5 +1,4 @@
 import {Button, FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {createNativeStackNavigator} from "react-native-screens/native-stack";
 
 /**
  * retrieve the current list of users from a repository.
@@ -21,10 +20,6 @@ function switchToDetails() {
     return
 }
 
-function createNewUserPressed() {
-
-}
-
 const kampf = [
     {name: "denis", key: "1"},
     {name: "max", key: "2"},
@@ -32,13 +27,18 @@ const kampf = [
 ]
 
 
-export const UserOverview = ({ navigation }) => {
+export const UserOverview = ({navigation}) => {
+
+    function createNewUserPressed() {
+        navigation.navigate("CreateNewUser")
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.header}>
                 Users List
             </Text>
-            <Button title={"Create new User"} onPress={navigation.navigate('CreateNewUser')}/>
+            <Button title={"Create new User"} onPress={createNewUserPressed}/>
             <FlatList
                 data={kampf}
                 renderItem={({item}) => (
