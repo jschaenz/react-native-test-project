@@ -11,7 +11,7 @@ export const CreateNewUser = ({navigation}) => {
     const [url, onChangeUrl] = useState("")
 
     async function saveUser() {
-        const ref = doc(db, "users", name + email + url).withConverter(userConverter)
+        const ref = doc(db, "users", Math.random().toString()).withConverter(userConverter)
         await setDoc(ref, new User(name, email, url))
         navigation.navigate("UserOverview")
     }
@@ -29,14 +29,12 @@ export const CreateNewUser = ({navigation}) => {
                 onChangeText={onChangeEmail}
                 value={email}
                 placeholder="Email"
-                keyboardType="numeric"
             />
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeUrl}
                 value={url}
                 placeholder="URL"
-                keyboardType="numeric"
             />
             <Button title={"Save"} onPress={saveUser}/>
         </View>
@@ -47,8 +45,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'stretch'
     },
     input: {
         height: 40,

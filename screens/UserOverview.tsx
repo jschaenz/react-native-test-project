@@ -16,7 +16,7 @@ export const UserOverview = ({navigation}) => {
                 querySnapshot.forEach((doc) => {
                         const {name, email, url} = doc.data()
                         fetchedUsers.push({
-                            id: name + email + url,
+                            id: doc.id,
                             name,
                             email,
                             url
@@ -32,8 +32,8 @@ export const UserOverview = ({navigation}) => {
         navigation.navigate("UserDetails", item)
     }
 
-    function createNewUserPressed(item: any) {
-        navigation.navigate("CreateNewUser", item)
+    function createNewUserPressed() {
+        navigation.navigate("CreateNewUser")
     }
 
     return (
@@ -56,8 +56,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'stretch'
     },
-    item: {}
+    item: {
+        alignSelf: "stretch"
+    }
 });

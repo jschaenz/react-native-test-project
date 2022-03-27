@@ -20,7 +20,7 @@ const screens = {
     CreateNewUser: {
         screen:  CreateNewUser,
         navigationOptions: {
-            title: "Create new user"
+            title: "Create new User"
         }
     }
 }

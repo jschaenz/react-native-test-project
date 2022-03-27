@@ -11,7 +11,12 @@ export const UserDetails = ({navigation}) => {
     const [url, onChangeUrl] = useState(navigation.getParam("url"))
 
     async function saveUser() {
-        const ref = doc(db, "users", name + email + url).withConverter(userConverter)
+        let ref = doc(db, "users", navigation.getParam("id")).withConverter(userConverter)
+        await deleteDoc(ref)
+            .catch(
+                err => console.log(err)
+            )
+        ref = doc(db, "users", navigation.getParam("id")).withConverter(userConverter)
         await setDoc(ref, new User(name, email, url))
             .then(
                 navigation.navigate("UserOverview")
@@ -42,7 +47,7 @@ export const UserDetails = ({navigation}) => {
     }
 
     async function deleteUser() {
-        const ref = doc(db, "users", name + email + url).withConverter(userConverter)
+        const ref = doc(db, "users", navigation.getParam("id")).withConverter(userConverter)
         await deleteDoc(ref)
             .then(
                 navigation.navigate("UserOverview")
@@ -64,16 +69,14 @@ export const UserDetails = ({navigation}) => {
                 onChangeText={onChangeEmail}
                 value={email}
                 placeholder="Email"
-                keyboardType="numeric"
             />
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeUrl}
                 value={url}
                 placeholder={"URL"}
-                keyboardType="numeric"
             />
-            <Button title={"Save"} onPress={saveUser}/>
+            <Button title={"Update User"} onPress={saveUser}/>
             <Button title={"Delete User"} onPress={deleteUserPopup} color="#FF0000"/>
         </View>
     );
@@ -83,8 +86,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'stretch'
     },
     input: {
         height: 40,
