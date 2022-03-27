@@ -21,7 +21,7 @@ import db from '../components/Firebase'
 export const UserOverview = ({navigation}) => {
 
     const [users, setUsers] = useState([
-        {"id": 123, "name": "test", "email": "asdas", "url": "xdddd"}
+        {"id": 123, "name": "NO DB", "email": "asdas", "url": "xdddd"}
     ]);
 
 
