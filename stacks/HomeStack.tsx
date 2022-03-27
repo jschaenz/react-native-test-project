@@ -4,6 +4,10 @@ import {createAppContainer} from 'react-navigation'
 import {CreateNewUser} from "../screens/CreateNewUser";
 import createStackNavigator from "react-native-screens/createNativeStackNavigator";
 
+/**
+ * ViewStack for all needed screens.
+ * Top one is shown by default
+ */
 const screens = {
     UserOverview: {
         screen: UserOverview,
@@ -18,7 +22,7 @@ const screens = {
         }
     },
     CreateNewUser: {
-        screen:  CreateNewUser,
+        screen: CreateNewUser,
         navigationOptions: {
             title: "Create new User"
         }

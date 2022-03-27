@@ -1,15 +1,21 @@
 import {Button, StyleSheet, TextInput, View} from 'react-native';
 import {useState} from "react";
 import {doc, setDoc} from "@firebase/firestore";
-import db from '../components/Firebase'
-import {User, userConverter} from "../components/UserUtils";
+import db from '../utils/Firebase'
+import {User, userConverter} from "../utils/UserUtils";
 
 export const CreateNewUser = ({navigation}) => {
 
+    /**
+     * states for name, email and url with default values set as current values
+     */
     const [name, onChangeName] = useState("")
     const [email, onChangeEmail] = useState("")
     const [url, onChangeUrl] = useState("")
 
+    /**
+     * save new user, id is Math.random()
+     */
     async function saveUser() {
         const ref = doc(db, "users", Math.random().toString()).withConverter(userConverter)
         await setDoc(ref, new User(name, email, url))

@@ -1,15 +1,21 @@
 import {Button, FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useEffect, useState} from "react";
 import {collection, onSnapshot} from "@firebase/firestore";
-import db from '../components/Firebase'
-import {generateUserView, User} from "../components/UserUtils";
+import db from '../utils/Firebase'
+import {generateUserView, User} from "../utils/UserUtils";
 
 export const UserOverview = ({navigation}) => {
 
+    /**
+     * Default user if no DB is connected
+     */
     const [users, setUsers] = useState([
         {"id": 123, "name": "DB", "email": "asdas", "url": "xdddd"}
     ]);
 
+    /**
+     * sample snippet
+     */
     useEffect(() => {
             const colRef = collection(db, "users")
             onSnapshot(colRef, (querySnapshot) => {
@@ -29,10 +35,17 @@ export const UserOverview = ({navigation}) => {
         }, []
     )
 
+    /**
+     * switch to user details page with selected user(item) as parameter passed to page
+     * @param item
+     */
     function switchToDetails(item: any) {
         navigation.navigate("UserDetails", item)
     }
 
+    /**
+     * switch to create new user page
+     */
     function createNewUserPressed() {
         navigation.navigate("CreateNewUser")
     }
@@ -44,7 +57,9 @@ export const UserOverview = ({navigation}) => {
             </View>
 
             <FlatList
+                //what data is presented
                 data={users}
+                //how the data is rendered, in this case with the helper method from UserUtils
                 renderItem={({item}) => (
                     <TouchableOpacity onPress={() => switchToDetails(item)}>
                         <View>
@@ -52,7 +67,8 @@ export const UserOverview = ({navigation}) => {
                         </View>
                     </TouchableOpacity>
                 )}
-                keyExtractor={(item) => item.id}
+                //how the user are arranged, in this case alphabetically by name
+                keyExtractor={(item) => item.name}
             />
         </View>
     )

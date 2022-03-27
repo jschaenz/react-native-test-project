@@ -1,5 +1,8 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 
+/**
+ * user helper Class with basic attributes for serialization/deserialization
+ */
 export class User {
     name: String
     email: String
@@ -16,6 +19,9 @@ export class User {
     }
 }
 
+/**
+ * serialization/deserialization into firestore db
+ */
 export const userConverter = {
     toFirestore: (user: User) => {
         return {
@@ -30,6 +36,9 @@ export const userConverter = {
     }
 }
 
+/**
+ * extra view for each user, contains the image and text for proper formatting
+ */
 export function generateUserView(user: User) {
     return (
         <View style={styles.wrapper}>
@@ -46,7 +55,9 @@ export function generateUserView(user: User) {
     )
 }
 
-
+/**
+ * CSS for user view
+ */
 const styles = StyleSheet.create({
     container: {
         paddingTop: 10,

@@ -1,15 +1,21 @@
 import {Alert, Button, StyleSheet, TextInput, View} from 'react-native';
 import {useState} from "react";
 import {deleteDoc, doc, setDoc} from "@firebase/firestore";
-import db from "../components/Firebase";
-import {User, userConverter} from "../components/UserUtils";
+import db from "../utils/Firebase";
+import {User, userConverter} from "../utils/UserUtils";
 
 export const UserDetails = ({navigation}) => {
 
+    /**
+     * states for name, email and url with default values set as current values
+     */
     const [name, onChangeName] = useState(navigation.getParam("name"))
     const [email, onChangeEmail] = useState(navigation.getParam("email"))
     const [url, onChangeUrl] = useState(navigation.getParam("url"))
 
+    /**
+     * To save the modified user delete current user and add new one (just changing didn't work??)
+     */
     async function saveUser() {
         let ref = doc(db, "users", navigation.getParam("id")).withConverter(userConverter)
         await deleteDoc(ref)
@@ -25,6 +31,9 @@ export const UserDetails = ({navigation}) => {
             )
     }
 
+    /**
+     * popup with confirmation/cancel for deleting user
+     */
     function deleteUserPopup() {
         Alert.alert(
             "Confirm Delete",
@@ -46,6 +55,9 @@ export const UserDetails = ({navigation}) => {
         )
     }
 
+    /**
+     * deletes user
+     */
     async function deleteUser() {
         const ref = doc(db, "users", navigation.getParam("id")).withConverter(userConverter)
         await deleteDoc(ref)
