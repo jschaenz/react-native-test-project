@@ -32,14 +32,16 @@ export const userConverter = {
 
 export function generateUserView(user: User) {
     return (
-        <View style={styles.container}>
-            <Image
-                style={styles.logo}
-                source={{uri: user.pictureUrl.toString()}}
-            />
-            <Text>
-                {user.name}
-            </Text>
+        <View style={styles.wrapper}>
+            <View style={styles.container}>
+                <Image
+                    style={styles.logo}
+                    source={{uri: user.pictureUrl.toString()}}
+                />
+                <Text style={styles.text}>
+                    {user.name}
+                </Text>
+            </View>
         </View>
     )
 }
@@ -48,15 +50,21 @@ export function generateUserView(user: User) {
 const styles = StyleSheet.create({
     container: {
         paddingTop: 10,
+        padding: 5,
         flex: 1,
         flexDirection: "row",
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: "center"
+        backgroundColor: '#e6e6e6',
+        alignItems: 'flex-start',
     },
     logo: {
         alignSelf: "flex-start",
         width: 30,
         height: 30
+    },
+    wrapper: {
+        padding: 2
+    },
+    text: {
+        paddingLeft: 10
     }
 });

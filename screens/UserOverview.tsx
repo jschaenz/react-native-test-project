@@ -39,7 +39,10 @@ export const UserOverview = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <Button title={"Create new User"} onPress={createNewUserPressed}/>
+            <View style={styles.button}>
+                <Button title={"Create new User"} onPress={createNewUserPressed}/>
+            </View>
+
             <FlatList
                 data={users}
                 renderItem={({item}) => (
@@ -52,16 +55,20 @@ export const UserOverview = ({navigation}) => {
                 keyExtractor={(item) => item.id}
             />
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: "column",
         backgroundColor: '#fff',
-        alignItems: 'stretch'
+        alignItems: 'center',
     },
     item: {
+        alignSelf: "stretch"
+    },
+    button: {
         alignSelf: "stretch"
     }
 });

@@ -77,7 +77,9 @@ export const UserDetails = ({navigation}) => {
                 placeholder={"URL"}
             />
             <Button title={"Update User"} onPress={saveUser}/>
-            <Button title={"Delete User"} onPress={deleteUserPopup} color="#FF0000"/>
+            <View style={styles.delete}>
+                <Button title={"Delete User"} onPress={deleteUserPopup} color="#FF0000"/>
+            </View>
         </View>
     );
 }
@@ -93,5 +95,8 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
+    },
+    delete: {
+        paddingTop: 10
     }
 });
