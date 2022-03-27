@@ -2,7 +2,7 @@ import {Alert, Button, StyleSheet, TextInput, View} from 'react-native';
 import {useState} from "react";
 import {deleteDoc, doc, setDoc} from "@firebase/firestore";
 import db from "../components/Firebase";
-import {User, userConverter} from "../components/UserComponent";
+import {User, userConverter} from "../components/UserUtils";
 
 export const UserDetails = ({navigation}) => {
 

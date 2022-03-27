@@ -1,5 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
-
+import {Image, StyleSheet, Text, View} from 'react-native';
 
 export class User {
     name: String
@@ -31,11 +30,15 @@ export const userConverter = {
     }
 }
 
-export default function () {
+export function generateUserView(user: User) {
     return (
         <View style={styles.container}>
+            <Image
+                style={styles.logo}
+                source={{uri: user.pictureUrl.toString()}}
+            />
             <Text>
-                User Component
+                {user.name}
             </Text>
         </View>
     )
@@ -44,9 +47,16 @@ export default function () {
 
 const styles = StyleSheet.create({
     container: {
+        paddingTop: 10,
         flex: 1,
+        flexDirection: "row",
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: "center"
     },
+    logo: {
+        alignSelf: "flex-start",
+        width: 30,
+        height: 30
+    }
 });

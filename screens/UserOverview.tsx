@@ -1,7 +1,8 @@
-import {Button, FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Button, FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useEffect, useState} from "react";
 import {collection, onSnapshot} from "@firebase/firestore";
 import db from '../components/Firebase'
+import {generateUserView, User} from "../components/UserUtils";
 
 export const UserOverview = ({navigation}) => {
 
@@ -43,7 +44,9 @@ export const UserOverview = ({navigation}) => {
                 data={users}
                 renderItem={({item}) => (
                     <TouchableOpacity onPress={() => switchToDetails(item)}>
-                        <Text style={styles.item}>{item.name}</Text>
+                        <View>
+                            {generateUserView(new User(item.name, item.email, item.url))}
+                        </View>
                     </TouchableOpacity>
                 )}
                 keyExtractor={(item) => item.id}

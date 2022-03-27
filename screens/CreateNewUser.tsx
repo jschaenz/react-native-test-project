@@ -2,7 +2,7 @@ import {Button, StyleSheet, TextInput, View} from 'react-native';
 import {useState} from "react";
 import {doc, setDoc} from "@firebase/firestore";
 import db from '../components/Firebase'
-import {User, userConverter} from "../components/UserComponent";
+import {User, userConverter} from "../components/UserUtils";
 
 export const CreateNewUser = ({navigation}) => {
 
