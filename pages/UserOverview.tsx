@@ -1,6 +1,4 @@
 import {Button, FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import UserDetails from "./UserDetails";
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from "react-native-screens/native-stack";
 
 /**
@@ -20,10 +18,11 @@ import {createNativeStackNavigator} from "react-native-screens/native-stack";
 
 
 function switchToDetails() {
-    return UserDetails
+    return
 }
 
 function createNewUserPressed() {
+
 }
 
 const kampf = [
@@ -33,13 +32,13 @@ const kampf = [
 ]
 
 
-export default function UserOverview() {
+export const UserOverview = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.header}>
                 Users List
             </Text>
-            <Button title={"Create new User"} onPress={createNewUserPressed}/>
+            <Button title={"Create new User"} onPress={navigation.navigate('CreateNewUser')}/>
             <FlatList
                 data={kampf}
                 renderItem={({item}) => (

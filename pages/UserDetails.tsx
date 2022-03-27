@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function UserDetails() {
+export const UserDetails = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text>User Detail Page</Text>

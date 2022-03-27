@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function CreateNewUser() {
+export const CreateNewUser = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text>Create New User Page</Text>
