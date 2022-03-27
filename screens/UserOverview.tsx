@@ -25,11 +25,10 @@ export const UserOverview = ({navigation}) => {
     ]);
 
 
-    /*
     useEffect(() => {
             const colRef = collection(db, "users")
             onSnapshot(colRef, (querySnapshot) => {
-                const fetchedUsers = []
+                const fetchedUsers: any = []
                 querySnapshot.forEach((doc) => {
                         const {name, email, picture} = doc.data()
                         fetchedUsers.push({
@@ -44,7 +43,7 @@ export const UserOverview = ({navigation}) => {
             })
         }, []
     )
-     */
+
 
     function switchToDetails(item: any) {
         navigation.navigate("UserDetails", item)
@@ -64,6 +63,7 @@ export const UserOverview = ({navigation}) => {
                         <Text style={styles.item}>{item.name}</Text>
                     </TouchableOpacity>
                 )}
+                keyExtractor={(item) => item.name}
             />
         </View>
     );

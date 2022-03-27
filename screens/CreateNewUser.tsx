@@ -1,5 +1,8 @@
 import {Button, StyleSheet, TextInput, View} from 'react-native';
 import {useState} from "react";
+import {doc, setDoc} from "@firebase/firestore";
+import db from '../components/Firebase'
+import {User, userConverter} from "../components/UserComponent";
 
 export const CreateNewUser = ({navigation}) => {
 
@@ -7,8 +10,10 @@ export const CreateNewUser = ({navigation}) => {
     const [email, onChangeEmail] = useState("")
     const [url, onChangeUrl] = useState("")
 
-    function saveUser() {
-
+    async function saveUser() {
+        const ref = doc(db, "users", name).withConverter(userConverter)
+        await setDoc(ref, new User(name, email, url))
+        navigation.navigate("UserOverview")
     }
 
     return (
@@ -33,7 +38,7 @@ export const CreateNewUser = ({navigation}) => {
                 placeholder="URL"
                 keyboardType="numeric"
             />
-            <Button title={"Save"} onPress={saveUser()}/>
+            <Button title={"Save"} onPress={saveUser}/>
         </View>
     );
 }
